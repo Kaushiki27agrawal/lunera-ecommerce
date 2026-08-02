@@ -1,0 +1,38 @@
+export const products = [
+  {
+    id: 1,
+    name: "Premium Silk Saree",
+    image: "/images/products/p1.jpg",
+    price: 1999,
+    oldPrice: 2499,
+    rating: 4.8,
+    discount: 20,
+  },
+  {
+    id: 2,
+    name: "Designer Kurti",
+    image: "/images/products/p2.jpg",
+    price: 1299,
+    oldPrice: 1599,
+    rating: 4.6,
+    discount: 18,
+  },
+  {
+    id: 3,
+    name: "Party Wear Gown",
+    image: "/images/products/p3.jpg",
+    price: 2799,
+    oldPrice: 3299,
+    rating: 4.9,
+    discount: 15,
+  },
+  {
+    id: 4,
+    name: "Bridal Lehenga",
+    image: "/images/products/p4.jpg",
+    price: 6999,
+    oldPrice: 7999,
+    rating: 5.0,
+    discount: 12,
+  },
+];
