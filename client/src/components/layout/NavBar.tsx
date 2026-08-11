@@ -1,10 +1,13 @@
 import { Link, NavLink } from "react-router-dom";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 
 function NavBar() {
   const { getCartCount } = useCart();
+  const { getWishlistCount } = useWishlist();
 
   const cartCount = getCartCount();
+  const wishlistCount = getWishlistCount();
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
     `text-sm font-medium transition ${
@@ -16,7 +19,7 @@ function NavBar() {
   return (
     <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
-        
+
         {/* Logo */}
         <Link
           to="/"
@@ -37,11 +40,17 @@ function NavBar() {
 
           <NavLink to="/wishlist" className={navLinkClass}>
             Wishlist
+            {wishlistCount > 0 && (
+              <span className="ml-2 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-pink-100 px-1.5 text-xs font-semibold text-pink-600">
+                {wishlistCount}
+              </span>
+            )}
           </NavLink>
         </nav>
 
         {/* Actions */}
         <div className="flex items-center gap-4">
+
           {/* Login */}
           <Link
             to="/login"

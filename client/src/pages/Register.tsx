@@ -2,12 +2,16 @@ import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 
-function Login() {
+function Register() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { register } = useAuth();
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] =
+    useState("");
+
   const [error, setError] = useState("");
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -15,15 +19,27 @@ function Login() {
 
     setError("");
 
-    if (!email || !password) {
-      setError("Please enter your email and password.");
+    if (!name || !email || !password || !confirmPassword) {
+      setError("Please fill in all fields.");
       return;
     }
 
-    const success = login(email, password);
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    const success = register(name, email, password);
 
     if (!success) {
-      setError("Invalid email or password.");
+      setError(
+        "An account with this email already exists."
+      );
       return;
     }
 
@@ -37,30 +53,51 @@ function Login() {
         {/* Header */}
         <div className="text-center">
           <p className="text-sm font-medium uppercase tracking-[0.25em] text-pink-600">
-            Welcome Back
+            Welcome to Lunera
           </p>
 
           <h1 className="mt-3 text-3xl font-bold text-gray-900">
-            Login to Lunera
+            Create Account
           </h1>
 
           <p className="mt-2 text-sm text-gray-500">
-            Sign in to access your account and orders.
+            Join Lunera and start your shopping journey.
           </p>
         </div>
 
-        {/* Error Message */}
+        {/* Error */}
         {error && (
           <div className="mt-6 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">
             {error}
           </div>
         )}
 
-        {/* Login Form */}
+        {/* Form */}
         <form
           onSubmit={handleSubmit}
           className="mt-8 space-y-5"
         >
+          {/* Name */}
+          <div>
+            <label
+              htmlFor="name"
+              className="mb-2 block text-sm font-medium text-gray-700"
+            >
+              Full Name
+            </label>
+
+            <input
+              id="name"
+              type="text"
+              value={name}
+              onChange={(event) =>
+                setName(event.target.value)
+              }
+              placeholder="Enter your name"
+              className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-pink-500 focus:ring-2 focus:ring-pink-100"
+            />
+          </div>
+
           {/* Email */}
           <div>
             <label
@@ -98,7 +135,28 @@ function Login() {
               onChange={(event) =>
                 setPassword(event.target.value)
               }
-              placeholder="Enter your password"
+              placeholder="Create a password"
+              className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-pink-500 focus:ring-2 focus:ring-pink-100"
+            />
+          </div>
+
+          {/* Confirm Password */}
+          <div>
+            <label
+              htmlFor="confirmPassword"
+              className="mb-2 block text-sm font-medium text-gray-700"
+            >
+              Confirm Password
+            </label>
+
+            <input
+              id="confirmPassword"
+              type="password"
+              value={confirmPassword}
+              onChange={(event) =>
+                setConfirmPassword(event.target.value)
+              }
+              placeholder="Confirm your password"
               className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-pink-500 focus:ring-2 focus:ring-pink-100"
             />
           </div>
@@ -108,18 +166,18 @@ function Login() {
             type="submit"
             className="w-full rounded-xl bg-pink-600 px-6 py-3.5 font-semibold text-white transition hover:bg-pink-700"
           >
-            Login
+            Create Account
           </button>
         </form>
 
-        {/* Register */}
+        {/* Login Link */}
         <p className="mt-6 text-center text-sm text-gray-500">
-          Don't have an account?{" "}
+          Already have an account?{" "}
           <Link
-            to="/register"
+            to="/login"
             className="font-semibold text-pink-600 hover:text-pink-700"
           >
-            Create Account
+            Login
           </Link>
         </p>
       </div>
@@ -127,4 +185,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

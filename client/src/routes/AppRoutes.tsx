@@ -1,35 +1,37 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Home from "@/pages/Home";
 import Products from "@/pages/Products";
 import ProductDetails from "@/pages/ProductDetails";
 import Cart from "@/pages/Cart";
-import Wishlist from "@/pages/WishList";
+import Wishlist from "@/pages/Wishlist";
 import Login from "@/pages/Login";
-import Profile from "@/pages/Profile";
-import Checkout from "@/pages/Checkout";
-import NotFound from "@/pages/NotFound";
+import Register from "@/pages/Register";
 
 function AppRoutes() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/product/:id" element={<ProductDetails />} />
+    <Routes>
+      {/* Home */}
+      <Route path="/" element={<Home />} />
 
-        {/* User Routes */}
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/checkout" element={<Checkout />} />
+      {/* Products */}
+      <Route path="/products" element={<Products />} />
 
-        {/* 404 */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+      <Route
+        path="/product/:id"
+        element={<ProductDetails />}
+      />
+
+      {/* Shopping */}
+      <Route path="/cart" element={<Cart />} />
+
+      <Route path="/wishlist" element={<Wishlist />} />
+
+      {/* Authentication */}
+      <Route path="/login" element={<Login />} />
+
+      <Route path="/register" element={<Register />} />
+    </Routes>
   );
 }
 

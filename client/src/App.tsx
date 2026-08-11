@@ -1,14 +1,17 @@
 import AppRoutes from "@/routes/AppRoutes";
+import { AuthProvider } from "@/context/AuthContext";
 import { CartProvider } from "@/context/CartContext";
 import { WishlistProvider } from "@/context/WishlistContext";
 
 function App() {
   return (
-    <CartProvider>
-      <WishlistProvider>
-        <AppRoutes />
-      </WishlistProvider>
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <WishlistProvider>
+          <AppRoutes />
+        </WishlistProvider>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 
